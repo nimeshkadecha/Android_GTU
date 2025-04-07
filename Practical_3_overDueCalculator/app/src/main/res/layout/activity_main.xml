@@ -3,31 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <Switch
             android:id="@+id/useOverdueDaysSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Use Overdue Days Instead of Return Date" />
-
         <Button
             android:id="@+id/pickDateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pick Return Date" />
-
         <TextView
             android:id="@+id/pickedDateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No date picked"
             android:paddingBottom="10dp"/>
-
         <EditText
             android:id="@+id/overdueDaysEditText"
             android:layout_width="match_parent"
@@ -35,27 +30,23 @@
             android:hint="Enter number of overdue days"
             android:inputType="number"
             android:enabled="false" />
-
         <EditText
             android:id="@+id/feePerDayEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Overdue Fee Per Day (₹)"
             android:inputType="numberDecimal" />
-
         <EditText
             android:id="@+id/numBooksEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Number of Books"
             android:inputType="number" />
-
         <Button
             android:id="@+id/calculateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Calculate" />
-
         <TextView
             android:id="@+id/resultTextView"
             android:layout_width="match_parent"
@@ -64,6 +55,5 @@
             android:textSize="18sp"
             android:paddingTop="15dp"
             android:textColor="@android:color/black" />
-
     </LinearLayout>
 </ScrollView>

@@ -18,20 +18,16 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-
 	EditText feePerDayEditText, numBooksEditText, overdueDaysEditText;
 	TextView resultTextView;
 	Button calculateButton, pickDateButton;
 	TextView pickedDateText;
 	Switch useOverdueDaysSwitch;
-
 	Calendar selectedReturnDate = null;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		feePerDayEditText = findViewById(R.id.feePerDayEditText);
 		numBooksEditText = findViewById(R.id.numBooksEditText);
 		overdueDaysEditText = findViewById(R.id.overdueDaysEditText);
@@ -40,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
 		pickDateButton = findViewById(R.id.pickDateButton);
 		pickedDateText = findViewById(R.id.pickedDateText);
 		useOverdueDaysSwitch = findViewById(R.id.useOverdueDaysSwitch);
-
 		pickDateButton.setOnClickListener(v -> showDatePicker());
-
 		useOverdueDaysSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
 			if (isChecked) {
 				pickDateButton.setEnabled(false);
@@ -54,10 +48,8 @@ public class MainActivity extends AppCompatActivity {
 				pickedDateText.setText("No date picked");
 			}
 		});
-
 		calculateButton.setOnClickListener(v -> calculateOverdue());
 	}
-
 	private void showDatePicker() {
 		Calendar calendar = Calendar.getInstance();
 		DatePickerDialog dialog = new DatePickerDialog(this,
@@ -72,20 +64,16 @@ public class MainActivity extends AppCompatActivity {
 		                                               calendar.get(Calendar.DAY_OF_MONTH));
 		dialog.show();
 	}
-
 	private void calculateOverdue() {
 		String feeStr = feePerDayEditText.getText().toString().trim();
 		String numBooksStr = numBooksEditText.getText().toString().trim();
-
 		if (feeStr.isEmpty() || numBooksStr.isEmpty()) {
 			resultTextView.setText("Please enter all required fields.");
 			return;
 		}
-
 		double feePerDay = Double.parseDouble(feeStr);
 		int numBooks = Integer.parseInt(numBooksStr);
 		int overdueDays = 0;
-
 		if (useOverdueDaysSwitch.isChecked()) {
 			String daysStr = overdueDaysEditText.getText().toString().trim();
 			if (daysStr.isEmpty()) {
@@ -101,13 +89,11 @@ public class MainActivity extends AppCompatActivity {
 			Calendar today = Calendar.getInstance();
 			long diffInMillis = today.getTimeInMillis() - selectedReturnDate.getTimeInMillis();
 			overdueDays = (int) (diffInMillis / (1000 * 60 * 60 * 24));
-
 			if (overdueDays < 0) {
 				resultTextView.setText("You have " + (-overdueDays) + " day(s) left.");
 				return;
 			}
 		}
-
 		double total = overdueDays * feePerDay * numBooks;
 		resultTextView.setText("Total Overdue: ₹" + total + " for " + overdueDays + " day(s).");
 	}

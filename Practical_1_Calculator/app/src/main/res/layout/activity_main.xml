@@ -9,16 +9,12 @@
     android:padding="8dp"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
-
-    <!-- Calculator Title -->
     <TextView
         style="@style/CalculatorDisplayText"
         android:id="@+id/calculatorTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CALCULATOR"/>
-
-    <!-- Scrollable Answer Display -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,8 +37,6 @@
                 android:text="0"/>
         </LinearLayout>
     </ScrollView>
-
-    <!-- First Row: (  )  CE  C -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,8 +71,6 @@
             android:layout_weight="1.5"
             android:text="C"/>
     </LinearLayout>
-
-    <!-- Second Row: 7 8 9 + -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,8 +102,6 @@
             android:layout_weight="1.5"
             android:text="+"/>
     </LinearLayout>
-
-    <!-- Third Row: 4 5 6 - -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -143,8 +133,6 @@
             android:layout_weight="1.5"
             android:text="-"/>
     </LinearLayout>
-
-    <!-- Fourth Row: 1 2 3 / -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -176,8 +164,6 @@
             android:layout_weight="1.5"
             android:text="/"/>
     </LinearLayout>
-
-    <!-- Fifth Row: 0 . x = -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

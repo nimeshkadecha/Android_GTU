@@ -26,74 +26,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
 	private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 	private MapView mapView;
 	private List<GeoPoint> routePoints = new ArrayList<>();
 	private List<Marker> markerList = new ArrayList<>();
 	private List<Polyline> polylineList = new ArrayList<>();
-
 	private SharedPreferences sharedPreferences;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		Configuration.getInstance().load(getApplicationContext(),
 		                                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-
 		setContentView(R.layout.activity_main);
-
 		mapView = findViewById(R.id.mapView);
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setMultiTouchControls(true);
-
 		IMapController mapController = mapView.getController();
-		mapController.setZoom(15.0);
+		mapController.setZoom(10.0);
 		GeoPoint startPoint = new GeoPoint(20.5937, 78.9629);
 		mapController.setCenter(startPoint);
-
 		sharedPreferences = getSharedPreferences("route_prefs", Context.MODE_PRIVATE);
-
 		requestPermissionsIfNecessary();
 		loadSavedPoints();
 		drawRoute();
-
 		MapEventsReceiver mReceive = new MapEventsReceiver() {
 			@Override
 			public boolean singleTapConfirmedHelper(GeoPoint p) {
-				addMarker(p);
-				return true;
-			}
-
+				addMarker(p);return true;			}
 			@Override
 			public boolean longPressHelper(GeoPoint p) {
-				return true;
-			}
+				return true;			}
 		};
-
 		MapEventsOverlay eventsOverlay = new MapEventsOverlay(mReceive);
 		mapView.getOverlays().add(eventsOverlay);
 	}
-
 	private void addMarker(GeoPoint p) {
 		Marker marker = new Marker(mapView);
 		marker.setPosition(p);
 		marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
 		marker.setTitle("Point " + (markerList.size() + 1));
-
-		// Click to delete the marker
 		marker.setOnMarkerClickListener((m, mapView) -> {
 			int index = markerList.indexOf(m);
-			if (index != -1) {
-				removeMarker(index);
-			}
+			if (index != -1) {removeMarker(index);}
 			return true;
 		});
-
 		mapView.getOverlays().add(marker);
 		markerList.add(marker);
-
 		if (markerList.size() > 1) {
 			GeoPoint prev = markerList.get(markerList.size() - 2).getPosition();
 			Polyline line = new Polyline();
@@ -103,57 +81,43 @@ public class MainActivity extends AppCompatActivity {
 			polylineList.add(line);
 			mapView.getOverlays().add(line);
 		}
-
 		saveAllMarkers();
 		mapView.invalidate();
 	}
-
 	private void removeMarker(int index) {
 		Marker marker = markerList.remove(index);
 		mapView.getOverlays().remove(marker);
-
 		if (index < polylineList.size()) {
 			mapView.getOverlays().remove(polylineList.get(index));
 			polylineList.remove(index);
 		}
-
 		if (index > 0 && index - 1 < polylineList.size()) {
 			mapView.getOverlays().remove(polylineList.get(index - 1));
 			polylineList.remove(index - 1);
 		}
-
 		saveAllMarkers();
 		mapView.invalidate();
 	}
-
 	private void drawRoute() {
 		mapView.getOverlays().clear();
-		markerList.clear();
-		polylineList.clear();
-
-		for (int i = 0; i < routePoints.size(); i++) {
+		markerList.clear();		polylineList.clear();
+		for (int i = 0; i < routePoints.size(); i++)
 			addMarker(routePoints.get(i));
-		}
 	}
-
 	private void saveAllMarkers() {
 		routePoints.clear();
-		for (Marker marker : markerList) {
+		for (Marker marker : markerList)
 			routePoints.add(marker.getPosition());
-		}
 		savePoints();
 	}
-
 	private void savePoints() {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		StringBuilder builder = new StringBuilder();
-		for (GeoPoint point : routePoints) {
+		for (GeoPoint point : routePoints)
 			builder.append(point.getLatitude()).append(",").append(point.getLongitude()).append(";");
-		}
 		editor.putString("route", builder.toString());
 		editor.apply();
 	}
-
 	private void loadSavedPoints() {
 		String routeString = sharedPreferences.getString("route", "");
 		if (!routeString.isEmpty()) {
@@ -168,26 +132,21 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 	}
-
 	private void requestPermissionsIfNecessary() {
 		String[] permissions = {
 										Manifest.permission.ACCESS_FINE_LOCATION,
 										Manifest.permission.ACCESS_COARSE_LOCATION
 		};
 		List<String> toRequest = new ArrayList<>();
-		for (String permission : permissions) {
+		for (String permission : permissions)
 			if (ActivityCompat.checkSelfPermission(this, permission)
-											!= PackageManager.PERMISSION_GRANTED) {
+											!= PackageManager.PERMISSION_GRANTED)
 				toRequest.add(permission);
-			}
-		}
-		if (!toRequest.isEmpty()) {
+		if (!toRequest.isEmpty())
 			ActivityCompat.requestPermissions(
 											this,
 											toRequest.toArray(new String[0]),
-											REQUEST_PERMISSIONS_REQUEST_CODE
-			                                 );
-		}
+											REQUEST_PERMISSIONS_REQUEST_CODE			                                 );
 	}
 
 	@Override
