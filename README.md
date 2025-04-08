@@ -28,3 +28,8 @@ See Outputs : -
   <summary><strong>Practical 5</strong></summary>
   <img src="https://github.com/nimeshkadecha/Android_GTU/blob/main/Output_screen_shot/Pratical_5.png" alt="Practical 5" height="500"/>
 </details>
+
+<details>
+  <summary><strong>Practical 6</strong></summary>
+  <img src="https://github.com/nimeshkadecha/Android_GTU/blob/main/Output_screen_shot/Practical_6.png" alt="Practical 6" height="500"/>
+</details>
