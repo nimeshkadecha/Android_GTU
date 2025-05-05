@@ -1,8 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/filter_priority" android:title="Sort by Priority"/>
-    <item android:id="@+id/filter_due_date" android:title="Sort by Due Date"/>
-    <item android:id="@+id/filter_optimization" android:title="Optimization"/>
-    <item android:id="@+id/filter_title_asc" android:title="Title A-Z"/>
-    <item android:id="@+id/filter_title_desc" android:title="Title Z-A"/>
-    <item android:id="@+id/filter_category" android:title="Filter by Category"/>
-</menu>
